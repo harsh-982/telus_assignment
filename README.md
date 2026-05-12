@@ -1,34 +1,57 @@
-Rewards API
-	A Spring Boot RESTful application that calculates customer reward points based on purchase transactions over a three-month period.
+# Rewards API
 
-Reward Rules
-		○ 2 points for every dollar spent above $100
-		○ 1 point for every dollar spent between $50 and $100
-		○ No points for purchases less than or equal to $50
-Example
-	A purchase of $120 earns:
-		○ 2 × $20 = 40 points
-		○ 1 × $50 = 50 points
-	Total = 90 points
+A Spring Boot RESTful application that calculates customer reward points based on purchase transactions over a three-month period.
 
-Tech Stack
-		○ Java 21
-		○ Spring Boot 3.3.5
-		○ Maven
-		○ JUnit 5
+---
 
-API Endpoint
-	Calculate Customer Rewards
-	HTTP Method: POST
+## Reward Rules
 
-Endpoint URL
-	http://localhost:8080/api/rewards
+* 2 points for every dollar spent above $100
+* 1 point for every dollar spent between $50 and $100
+* No points for purchases less than or equal to $50
 
-Content-Type
-application/json
+### Example
 
-Sample Request Body
-	[
+A purchase of **$120** earns:
+
+* 2 × $20 = 40 points
+* 1 × $50 = 50 points
+
+**Total = 90 points**
+
+---
+
+## Tech Stack
+
+* Java 21
+* Spring Boot 3.3.5
+* Maven
+* JUnit 5
+
+---
+
+## API Endpoint
+
+### Calculate Customer Rewards
+
+**HTTP Method**
+
+POST
+
+**Endpoint URL**
+
+`http://localhost:8080/api/rewards`
+
+**Content-Type**
+
+`application/json`
+
+---
+
+## Sample Request Body
+
+```json
+[
   {
     "customerId": "C1",
     "amount": 180,
@@ -65,9 +88,14 @@ Sample Request Body
     "transactionDate": "2026-03-25"
   }
 ]
+```
 
-Sample Response
-	[
+---
+
+## Sample Response
+
+```json
+[
   {
     "customerId": "C3",
     "monthlyPoints": {
@@ -92,36 +120,66 @@ Sample Response
     "totalPoints": 120
   }
 ]
+```
 
-Exception Handling
-	The application uses centralized exception handling using:
-		○ Custom exception classes
-		○ Global exception handler using @RestControllerAdvice
-	Invalid transactions such as:
-		○ Negative transaction amounts
-		○ Missing transaction dates
-	will return proper error responses with HTTP status codes.
+---
 
-Running the Application
-	Run this command on terminal : mvn spring-boot:run
-	Application runs on: http://localhost:8080
+## Exception Handling
 
-Running Tests
-	mvn test
+The application uses centralized exception handling using:
 
-Features
-		○ RESTful POST API
-		○ Monthly reward aggregation
-		○ Total reward calculation
-		○ Centralized exception handling
-		○ Unit testing using JUnit 5
-		○ Clean layered architecture
-		○ JavaDocs for maintainability
+* Custom exception classes
+* Global exception handler using `@RestControllerAdvice`
 
-Assumptions
-		○ Reward points are calculated per transaction.
-		○ Rewards are aggregated monthly and per customer.
-		○ Invalid transactions are rejected using custom exception handling.
+Invalid transactions such as:
 
-Author
+* Negative transaction amounts
+* Missing transaction dates
+
+return proper HTTP error responses.
+
+---
+
+## Running the Application
+
+```bash
+mvn spring-boot:run
+```
+
+Application runs on:
+
+`http://localhost:8080`
+
+---
+
+## Running Tests
+
+```bash
+mvn test
+```
+
+---
+
+## Features
+
+* RESTful POST API
+* Monthly reward aggregation
+* Total reward calculation
+* Centralized exception handling
+* Unit testing using JUnit 5
+* Clean layered architecture
+* JavaDocs for maintainability
+
+---
+
+## Assumptions
+
+* Reward points are calculated per transaction.
+* Rewards are aggregated monthly and per customer.
+* Invalid transactions are handled using custom exception handling.
+
+---
+
+## Author
+
 Harsh Singh
