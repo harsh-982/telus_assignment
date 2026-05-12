@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+
+/**
+ * REST controller for reward calculation APIs.
+ */
 @RestController
 @RequestMapping("/api/reward-points")
 public class TelusRewardController {
@@ -18,6 +23,11 @@ public class TelusRewardController {
         this.service = service;
     }
 
+    /**
+     *Calculates reward points for provided transactions.
+     *@param purchases transaction list
+     *@return customer reward summary
+     */
     @PostMapping
     public List<CustomerRewardSummary> calculateRewards(@RequestBody List<Purchase> purchases) {
         return service.calculateRewards(purchases);

@@ -1,7 +1,16 @@
 package com.telus.assignment.helper;
 
+/**
+ * Utility class for reward point calculation.
+ */
 public class RewardUtil {
 
+    /**
+     * Calculates reward points based on transaction amount.
+     *
+     * @param amount transaction amount
+     * @return reward points
+     */
     public static int calculatePoints(double amount) {
 
         if (amount <= 50) {

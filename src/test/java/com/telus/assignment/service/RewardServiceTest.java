@@ -1,5 +1,6 @@
 package com.telus.assignment.service;
 
+import com.telus.assignment.exception.InvalidTransactionException;
 import com.telus.assignment.model.CustomerRewardSummary;
 import com.telus.assignment.model.Purchase;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RewardServiceTest {
 
@@ -46,5 +48,28 @@ public class RewardServiceTest {
         assertEquals(150, c2.getTotalPoints());
         assertEquals(40, c2.getMonthlyPoints().get("2026-01"));
         assertEquals(110, c2.getMonthlyPoints().get("2026-03"));
+    }
+
+    @Test
+    void shouldThrowExceptionForNegativeAmount() {
+
+        List<Purchase> data = List.of(
+                new Purchase(
+                        "C1",
+                        -100,
+                        LocalDate.of(2026, 1, 10)
+                )
+        );
+
+        InvalidTransactionException exception =
+                assertThrows(
+                        InvalidTransactionException.class,
+                        () -> service.calculateRewards(data)
+                );
+
+        assertEquals(
+                "Transaction amount must be greater than zero",
+                exception.getMessage()
+        );
     }
 }
